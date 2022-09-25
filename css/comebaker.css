@@ -1,0 +1,168 @@
+.popup {
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0;
+	z-index: 100000;
+}
+
+.popup.show {
+	overflow: auto;
+	display: flex;
+	justify-content: center;
+}
+
+.popup__wrapper {
+	padding: 15px;
+	width: 100%;
+	max-width: 600px;
+}
+
+.popup__content {
+	position: relative;
+	background-color: #fff;
+	border: 2px solid #c00;
+	margin: 0 auto;
+}
+
+.popup__close {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.popup__text {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	padding: 30px;
+}
+
+.popup__title {
+	font-size: 22px;
+}
+
+.popup__title:not(:last-child) {
+	margin-bottom: 0.9375rem;
+}
+
+.popup__product-img {
+	position: relative;
+	align-self: center;
+	max-width: 200px;
+}
+
+.popup__product-img img {
+	max-width: 100%;
+}
+
+.popup__product-img:not(:last-child) {
+	margin-bottom: 50px;
+}
+
+.product-price {
+	position: absolute;
+	font-family: "Arial", sans-serif;
+	right: 0;
+	bottom: 0;
+	box-shadow: rgba(0, 0, 0, 0.8) 0px 3px 30px;
+	text-align: center !important;
+	font-weight: bold;
+	line-height: 1.3;
+	transform: rotateZ(-7deg);
+	padding: 0.625rem;
+	background: linear-gradient(to right, rgb(238, 165, 19) 0%, #fded13 100%);
+	border: 2px solid #fff;
+	border-radius: 19%;
+}
+
+.product-price_ps .product-price__title {
+	font-size: 0.875rem;
+}
+
+.product-price__old {
+	font-size: 1.1875rem;
+	text-decoration: line-through;
+}
+
+.product-price_ps .product-price__old {
+	font-size: 0.875rem;
+}
+
+.product-price__new {
+	border-bottom: 2px solid #d31812;
+	font-size: 22px;
+}
+
+.product-price_ps .product-price__new {
+	font-size: 1rem;
+}
+
+.form-order {
+	text-align: center;
+}
+
+.form-order__box-input {
+	display: grid;
+	justify-items: center;
+}
+
+.form-order__box-input:not(:last-child) {
+	margin: 0px 0px 1.25rem 0px;
+}
+
+.form-order__label {
+	font-family: "FuturaPT", Georgia, Times New Roman, Times, serif;
+	font-size: 1.125rem;
+	font-weight: 600;
+}
+
+.form-order__input {
+	margin-top: 0.5rem;
+	padding: 0.625rem;
+	width: 50%;
+	border: 2px solid #c00;
+	outline: none;
+}
+
+@media (max-width: 768.98px) {
+	.form-order__input {
+		width: 100%;
+	}
+}
+
+.form-order__input:focus {
+	outline-radius: 0px;
+	box-shadow: 0 3px 5px #232323;
+}
+
+.form-order__input::placeholder {
+	text-align: center;
+	font-size: 1rem;
+	font-family: "FuturaPT", Georgia, Times New Roman, Times, serif;
+}
+
+.form-order__button {
+	margin: 1.875rem auto 2.5rem;
+	padding: 20px;
+	max-width: 100%;
+}
+
+.form-order__button_mb {
+	margin: 0;
+}
+
+body.bg-show-popap::before {
+	content: "";
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	z-index: 100000;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.308);
+}
