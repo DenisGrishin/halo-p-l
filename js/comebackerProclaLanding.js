@@ -5,23 +5,28 @@ window.addEventListener('DOMContentLoaded', function () {
   // параметры на самом дне прописывать
 
   (function (selectorForm, srcPath, heigthImg = '300') {
-    comebacker(selectorForm);
+    comebacker(selectorForm, srcPath);
 
     function comebacker(formSelector) {
-      if (localStorage.getItem('active')) {
-        localStorage.removeItem('isShown');
-        return;
+      if (!localStorage.getItem('activeUserPage')) {
+        history.pushState({}, '', location.href);
       }
 
-      localStorage.removeItem('show');
-      localStorage.removeItem('isShown');
-
-      history.pushState({}, '', '');
       window.addEventListener('popstate', function () {
-        localStorage.removeItem('isShown');
+        if (localStorage.getItem('activeUserPage')) {
+          location.removeItem('showModulWindLed');
+          return;
+        }
+        if (localStorage.getItem('showModulWindLed')) {
+          this.location.href = link;
+          return;
+        }
+
         createModulWindow(srcPath, heigthImg);
-        localStorage.setItem('isShown', true);
+
+        localStorage.setItem('showModulWindLed', true);
       });
+
       function createModulWindow(srcPath, heigthImg) {
         const styleModal = `
         .modul-bg {
@@ -62,7 +67,7 @@ window.addEventListener('DOMContentLoaded', function () {
         flex-direction: column;
     
         transform: scale(0);
-        transition: transform 0.3s ease 0s;
+        transition: transform 0.4s ease-in 0s;
       }
       .modul.active { 
         transform: scale(1);
@@ -96,7 +101,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }
       body::before{
         content: "";
-        transition: all 0.3s ease 0s;
+        transition: all 0.4s ease 0s;
         opacity:0;
         visibility: hidden;
       }
@@ -126,7 +131,7 @@ window.addEventListener('DOMContentLoaded', function () {
         width: 100% !important;
         border: 2px solid #000 !important;
         outline: none !important;
-        background-color: #fff;
+        background-color: #fff !important;
       }
       `;
 
@@ -163,6 +168,7 @@ window.addEventListener('DOMContentLoaded', function () {
         modul.appendChild(imgModul);
         modul.appendChild(form);
         modulBg.appendChild(style);
+
         setTimeout(() => {
           showModal(modulBg, btnClose, modul);
         }, 1);
@@ -185,14 +191,22 @@ window.addEventListener('DOMContentLoaded', function () {
           if (e.target === modulBg || e.target === btnClose) {
             modul.classList.remove('active');
 
-            localStorage.removeItem('isShown');
+            localStorage.removeItem('showModulWindLed');
             setTimeout(() => {
               document.body.classList.remove('bg-show-modal');
               modulBg.classList.remove('active');
               modulBg.remove();
               document.body.style.paddingRight = `0px`;
-            }, 200);
+            }, 300);
           }
+        });
+
+        window.addEventListener('unload', function () {
+          document.body.classList.remove('bg-show-modal');
+          modulBg.classList.remove('active');
+          modulBg.remove();
+          document.body.style.paddingRight = `0px`;
+          localStorage.removeItem('showModulWindLed');
         });
       }
 
@@ -213,6 +227,8 @@ window.addEventListener('DOMContentLoaded', function () {
   })(
     '.form-order',
     'https://funart.pro/uploads/posts/2022-06/1654756218_58-funart-pro-p-samii-malenkii-yezhik-v-mire-zhivotnie-kra-63.jpg',
-    '300'
+    '300',
+    'https://denisgrishin.github.io/halo/'
   );
 });
+// ('https://denisgrishin.github.io/halo/');
