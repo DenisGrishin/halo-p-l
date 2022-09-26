@@ -1,15 +1,23 @@
 window.addEventListener('DOMContentLoaded', function () {
   // selectorForm - указать селектор или id формы на лендинге
   // srcPathImg - указать путь для изображения в модальном окне
-  // heightImg - если картинка крива показывается поменять значения
   // linkLand - указать ссылку для переходу на лэд, если не надо оставляем пустую строчку ''
+  // linkProclo - указать ссылку проклы
+  // heightImg - если картинка крива показывается поменять значения
   // !!! параметры на самом дне прописывать
 
-  (function (selectorForm, srcPathImg, linkLand, heigthImg = '300') {
-    comebacker();
-    console.log(linkLand);
-    function comebacker() {
+  (function (
+    selectorForm,
+    srcPathImg,
+    linkLand,
+    linkProclo,
+    heigthImg = '300'
+  ) {
+    const form = document.querySelector(selectorForm);
+    comebacker(form);
+    function comebacker(form) {
       if (!localStorage.getItem('activeUserPage')) {
+        history.pushState({}, '', location.href);
         history.pushState({}, '', location.href);
       }
 
@@ -18,18 +26,16 @@ window.addEventListener('DOMContentLoaded', function () {
           return;
         }
         if (localStorage.getItem('showModulWindLed')) {
-          location.href = linkLand;
+          form ? (location.href = linkProclo) : (location.href = linkLand);
           return;
         }
 
-        createModulWindow(srcPathImg, heigthImg);
-
+        createModulWindow(srcPathImg, heigthImg, form);
         localStorage.setItem('showModulWindLed', 'true');
       });
-      return;
     }
     // создаем окно
-    function createModulWindow(srcPathImg, heigthImg) {
+    function createModulWindow(srcPathImg, heigthImg, form) {
       const styleModal = `
         .modul-bg {
           padding: 20px;
@@ -69,7 +75,7 @@ window.addEventListener('DOMContentLoaded', function () {
         flex-direction: column;
     
         transform: scale(0);
-        transition: transform 0.4s ease-in 0s;
+        transition: transform 0.3s ease-in 0s;
       }
       .modul.active { 
         transform: scale(1);
@@ -116,7 +122,7 @@ window.addEventListener('DOMContentLoaded', function () {
         background-image: linear-gradient(45deg, #fff 50%, transparent 50%);
         background-position: 100%;
         background-size: 400%;
-        transition: all 0.4s ease-in-out 0s;
+        transition: all 0.5s ease-in-out 0s;
         }
         
         @media (any-hover: hover) {
@@ -153,7 +159,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }
       
       input{
-        max-width: 350px;
+        max-width: 600px;
         margin-top: 0.5rem !important;
         padding: 0.625rem !important;
         width: 100% !important;
@@ -196,12 +202,11 @@ window.addEventListener('DOMContentLoaded', function () {
       modulBg.appendChild(style);
 
       // проверить если форма,если нет рисуем кнопку
-      if (document.querySelector(selectorForm)) {
-        (form = document.querySelector(selectorForm).cloneNode(true)),
-          modul.appendChild(form);
+      if (form) {
+        form.cloneNode(true);
+        modul.appendChild(form);
       } else {
         const linkBtn = document.createElement('a');
-        console.log(linkLand);
         linkBtn.classList.add('modul-link-btn');
         linkBtn.setAttribute('href', linkLand);
         linkBtn.innerHTML = 'Go to view!';
@@ -240,7 +245,7 @@ window.addEventListener('DOMContentLoaded', function () {
             modulBg.classList.remove('active');
             modulBg.remove();
             document.body.style.paddingRight = `0px`;
-          }, 300);
+          }, 1);
         }
       });
 
@@ -269,7 +274,8 @@ window.addEventListener('DOMContentLoaded', function () {
   })(
     '.form-order',
     'https://funart.pro/uploads/posts/2022-06/1654756218_58-funart-pro-p-samii-malenkii-yezhik-v-mire-zhivotnie-kra-63.jpg',
-    'https://denisgrishin.github.io/halo-p-l/home.html',
+    'http://127.0.0.1:5500/home.html',
+    'http://127.0.0.1:5500/',
     '300'
   );
 });

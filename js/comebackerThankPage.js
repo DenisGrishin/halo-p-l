@@ -1,7 +1,9 @@
 window.addEventListener('DOMContentLoaded', function () {
   (function () {
     window.addEventListener('load', () => {
-      localStorage.setItem('activeUserPage', true);
+      if (!localStorage.getItem('activeUserPage')) {
+        localStorage.setItem('activeUserPage', true);
+      }
     });
   })();
 });
