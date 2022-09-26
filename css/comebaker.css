@@ -43,7 +43,7 @@
 }
 
 .popup__title {
-	font-size: 22px;
+	font-size: 33px !important;
 }
 
 .popup__title:not(:last-child) {
